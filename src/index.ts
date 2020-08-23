@@ -1,3 +1,3 @@
 import "./dummy-element";
-import "./section-details";
-import "./section-sidebar";
+import "./jk-list";
+import "./jk-list-item";
