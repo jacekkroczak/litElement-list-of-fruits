@@ -1,5 +1,6 @@
-import { array } from './my-list';
 import { html, css, customElement, property, LitElement } from "lit-element";
+
+import { array } from './my-list';
 
 @customElement("jk-list-item")
 export default class JkListItem extends LitElement {

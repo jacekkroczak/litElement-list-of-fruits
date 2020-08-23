@@ -1,4 +1,4 @@
-import { html, css, LitElement, customElement, property } from "lit-element";
+import { html, css, LitElement, customElement } from "lit-element";
 
 import "./jk-list-item";
 
