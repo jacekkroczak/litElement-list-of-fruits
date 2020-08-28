@@ -19,16 +19,7 @@ module.exports = (env, argv) => ({
       template: "./src/index.html",
     }),
     new CopyWebpackPlugin([
-      {
-        context: "node_modules/@webcomponents/webcomponentsjs",
-        from: "**/*.js",
-        to: "webcomponents",
-      },
-      {
-        from: "./src/assets/img/*",
-        to: "./",
-        flatten: true,
-      },
+      {from:'src/assets',to:'assets'}
     ]),
   ],
   output: {

@@ -34,8 +34,10 @@ export default class JkListItem extends LitElement {
 
   protected render() {
     const _renderFruit = (item: any, index: number) => html`
-      <li>${index + 1}, ${item.name}</li>
-      <img src="assets/${item.name}.jpg" />
+      <li>name: ${item.name}, id: ${index + 1}
+        <img src="/assets/${item.name}.jpg" />
+      </li>
+
       `;
 
     return html`
