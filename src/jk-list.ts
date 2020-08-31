@@ -7,10 +7,6 @@ export class JkList extends LitElement {
   static get styles() {
     return [
       css`
-        :host {
-          display: flex;
-          }
-
           ul {
             column-count: 5;
             list-style: none;
