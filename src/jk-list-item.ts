@@ -18,6 +18,7 @@ export default class JkListItem extends LitElement {
 
       img {
         width: 220px;
+        height: 170px;
       }
     `;
   }
