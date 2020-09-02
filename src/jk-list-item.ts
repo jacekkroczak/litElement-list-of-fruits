@@ -1,11 +1,11 @@
 import { html, css, customElement, property, LitElement } from "lit-element";
 
-import { array } from './my-list';
-
 @customElement("jk-list-item")
 export default class JkListItem extends LitElement {
 
-@property({ type: Array}) fruits: any = [];
+@property({ type: Object}) fruit: any = {};
+
+@property({ type: Number}) index: any;
 
 
   static get styles() {
@@ -23,30 +23,11 @@ export default class JkListItem extends LitElement {
     `;
   }
 
-  firstUpdated() {
-    const myArray = []
-      for (let i = 0; i < 1000; i++) {
-        const index = Math.floor(Math.random() * array.length);
-        const itemFruit = array[index];
-        myArray.push(itemFruit);
-        this.fruits = myArray;
-      }
-  }
-
   protected render() {
-    const _renderFruit = (item: any, index: number) => html`
-      <li>name: ${item.name}, id: ${index + 1}
-        <img src="/assets/${item.name}.jpg" />
-      </li>
-
-      `;
-
     return html`
-    ${this.fruits != null && this.fruits.length > 0 ? this.fruits.map((item: any, index: number) => _renderFruit(item, index)) : ''}
-    
+    <li>name: ${this.fruit.name}, id: ${this.index + 1}
+        <img src="/assets/${this.fruit.name}.jpg" />
+      </li>    
     `;
   }
 }
-
-// <img src="http://localhost:8080/assets/Banana.jpg" />
-//     <img src="assets/Banana.jpg" />

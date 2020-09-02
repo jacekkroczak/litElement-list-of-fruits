@@ -1,4 +1,6 @@
-import { html, css, LitElement, customElement } from "lit-element";
+import { html, css, LitElement, customElement, property } from "lit-element";
+
+import { array } from './my-list';
 
 import "./jk-list-item";
 
@@ -14,15 +16,36 @@ export class JkList extends LitElement {
       `,
     ];
   }
+
+  @property({ type: Array}) fruits: any = [];
+
   constructor() {
     super();
   }
 
+  firstUpdated() {
+    this.fruits = []
+      for (let i = 0; i < 1000; i++) {
+        const index = Math.floor(Math.random() * array.length);
+        const itemFruit = array[index];
+        this.fruits.push(itemFruit);
+      }
+
+      console.log('array', this.fruits);
+  }
+
 
   render() {
+    const _renderFruit = (item: any, index: number) => html`
+      <jk-list-item
+        .fruit="${item}"
+        .index="${index}"
+      ></jk-list-item>
+    `;
+
     return html`
         <ul class="list">
-          <jk-list-item></jk-list-item>
+          ${this.fruits.map((item: any, index: number) => _renderFruit(item, index))}
         </ul>
     `;
   }
