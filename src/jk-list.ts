@@ -1,8 +1,10 @@
 import { html, css, LitElement, customElement, property } from "lit-element";
 
-import { array } from './my-list';
+import { basicFruits } from './fruits-list';
 
+/* Components */
 import "./jk-list-item";
+import "./jk-scroll-to-top"
 
 @customElement("jk-list")
 export class JkList extends LitElement {
@@ -12,9 +14,10 @@ export class JkList extends LitElement {
           #filters {
             justify-content: space-between;
             display: flex;
-            max-width: 65%;
+            max-width: 75%;
             padding: 20px 0;
           }
+
           ul {
             column-count: 5;
             list-style: none;
@@ -82,59 +85,74 @@ export class JkList extends LitElement {
             border-color: #c3002f;
           }
 
+          .purpleButton:focus {
+            background: #904ae6;
+            color: #fff;
+          }
+
+          .blueButton:focus {
+            background: #35b8ee;
+            color: #fff;
+          }
+
+          .greenButton:focus {
+            background: #3fb984;
+            color: #fff;
+          }
       `,
     ];
   }
 
-  @property({ type: Array}) fruits: any = [];
+  @property({ type: Array }) fruits: any = [];
 
-  @property({ type: Array}) filteredFruits: any = [];
-
-  constructor() {
-    super();
-  }
+  @property({ type: Array }) filteredFruits: any = [];
 
   firstUpdated() {
-    this.fruits = []
+    this._renderElements();
+  }
+
+  _renderElements() {
+    this.fruits = [];
 
     for (let i = 0; i < 100; i++) {
-      for (let i = 0; i < array.length; i++) {
-      let itemFruit = array[i];
-      this.fruits.push(itemFruit);
+      for (let i = 0; i < basicFruits.length; i++) {
+        let itemFruit = basicFruits[i];
+        this.fruits.push(itemFruit);
       }
     }
-    
   }
 
-  _filterByAZ() {
+  _filterFruits(e: any) {
+    let filterValues = e.target.value;
     this.fruits.sort((a: any, b: any) => {
-      if(a.name < b.name) { return -1; }
-      return 0;
+
+      if (filterValues === 'filterAZ' && a.name < b.name) {
+        return -1;
+      }
+
+      else if (filterValues === 'filterZA' && a.name > b.name) {
+        return -1;
+      }
+
+      else if (filterValues === 'random') {
+        return 0.5 - Math.random();
+      }
+
+      else if (filterValues === 'mango' && a.name === 'Mango') {
+        return -1;
+      }
+
+      else if (filterValues === 'reset') {
+        this._renderElements();
+      }
+
+      else {
+        return 0;
+      }
     })
+
     this.requestUpdate();
   }
-
-  _filterByZA() {
-    this.fruits.sort((a: any, b: any) => {
-      if(a.name > b.name) { return -1; }
-      return 0;
-    })
-    this.requestUpdate();
-  }
-
-  _filterFirstMango() {
-    this.fruits.sort((item: any) => {
-      if(item.name === 'Mango') { return -1; }
-      return 0;
-    })
-      this.requestUpdate();
-  }
-
-  _reset() {
-    this.firstUpdated();
-    this.requestUpdate();
-  }
-
 
   render() {
     const _renderFruit = (item: any, index: number) => html`
@@ -146,16 +164,18 @@ export class JkList extends LitElement {
 
     return html`
       <div id="filters">
-          <button class="purpleButton" @click="${this._filterByAZ}">A-Z filter</button>
-          <button class="greenButton" @click="${this._filterByZA}">Z-A filter</button>
-          <button class="blueButton" @click="${this._filterFirstMango}">Show "Mango" in first column </button>
-          <button class="redButton" @click="${this._reset}">Reset</button>
+          <button class="purpleButton" @click="${(e: any) => this._filterFruits(e)}" value="filterAZ">A-Z filter</button>
+          <button class="purpleButton" @click="${(e: any) => this._filterFruits(e)}" value="filterZA">Z-A filter</button>
+          <button class="blueButton" @click="${(e: any) => this._filterFruits(e)}" value="random">Random fruits</button>
+          <button class="greenButton" @click="${(e: any) => this._filterFruits(e)}" value="mango">Show mango in first column</button>
+          <button class="redButton" @click="${(e: any) => this._filterFruits(e)}" value="reset">Reset</button>
       </div>
       <div id="list">
         <ul class="list">
           ${this.fruits.map((item: any, index: number) => _renderFruit(item, index))}
         </ul>
       </div>
+      <jk-scroll-to-top></jk-scroll-to-top>
     `;
   }
 }

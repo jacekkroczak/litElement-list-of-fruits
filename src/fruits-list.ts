@@ -1,4 +1,4 @@
-export let array = [   
+export let basicFruits = [   
     {  name: 'Apple' },
     {  name: 'Banana' },
     {  name: 'Cherry' },
