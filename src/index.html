@@ -1,38 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel='icon' type='image/png' href='assets/favicon.png'>
-      <title>LitElement - List of fruits</title>
-      <!-- <script src="webcomponents/webcomponents-loader.js"></script>   -->
-    <style>         
-      body {
-        background:url(assets/main-background.jpg);
-        background-size: contain;
-      }
 
-      * {
-        font-family: 'Montserrat', sans-serif;
-        font-weight: 400;
-      }
-      
-      .container {
-          display: block;
-          padding: 0 20px;
-      }
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel='icon' type='image/png' href='assets/favicon.png'>
+  <title>LitElement - List of fruits</title>
+  <!-- <script src="webcomponents/webcomponents-loader.js"></script>   -->
+  <style>
+    body {
+      background: url(assets/main-background.jpg);
+      background-size: contain;
+    }
 
-      h1 {
-        text-align: center;
-      }    
-    </style>      
-  </head>
-  <body>    
-    <div class="container">
-      <div class="title">
-        <h1>LitElement - List of fruits</h1>
-      </div>
+    * {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 400;
+    }
+
+    .container {
+      display: block;
+      padding: 0 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="title">
+      <h1>LitElement - List of fruits</h1>
     </div>
-      <jk-list class="container"></jk-list>
-  </body>
+  </div>
+  <jk-list class="container"></jk-list>
+</body>
+
 </html>

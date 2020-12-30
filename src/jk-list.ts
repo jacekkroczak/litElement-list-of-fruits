@@ -175,7 +175,7 @@ export class JkList extends LitElement {
 
     const renderNoItemsLabel = () => html`
       <div id="noItems">
-        <p>No records found for the phrases: <strong>${this.search != null ? this.search.value: ''}</strong></p>
+        <p>No records found for the phrases: <strong>${this.search != null ? this.search.value : ''}</strong></p>
       </div>
     `;
 

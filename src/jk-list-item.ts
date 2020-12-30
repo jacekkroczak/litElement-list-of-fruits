@@ -3,9 +3,9 @@ import { html, css, customElement, property, LitElement } from "lit-element";
 @customElement("jk-list-item")
 export default class JkListItem extends LitElement {
 
-@property({ type: Object}) fruit: any = {};
+  @property({ type: Object }) fruit: any = {};
 
-@property({ type: Number}) index: any;
+  @property({ type: Number }) index: any;
 
   static get styles() {
     return css`
