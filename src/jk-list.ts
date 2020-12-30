@@ -109,7 +109,7 @@ export class JkList extends LitElement {
 
   @property({ type: Array }) fruits: any = [];
 
-  @property({ type: Array }) filteredFruits: any = [];
+  @property({ type: Array }) filterFruits: any = [];
 
   @query('#search') search: any
 
@@ -126,12 +126,12 @@ export class JkList extends LitElement {
         this.fruits.push(itemFruit);
       }
     }
-    this.filteredFruits = this.fruits;
+    this.filterFruits = this.fruits;
   }
 
   private _filterFruits(e: any) {
     let filterValues = e.target.value;
-    this.filteredFruits.sort((a: any, b: any) => {
+    this.filterFruits.sort((a: any, b: any) => {
 
       if (filterValues === 'filterAZ' && a.name < b.name) {
         return -1;
@@ -159,9 +159,9 @@ export class JkList extends LitElement {
 
   private _searchFruits(e: any) {
     e.preventDefault();
-    const term = e.target.value.toLowerCase();
-    this.filteredFruits = this.fruits.filter((filteredFruit: any) => {
-      return filteredFruit.name.toLowerCase().includes(term)
+    const item = e.target.value.toLowerCase();
+    this.filterFruits = this.fruits.filter((filterFruit: any) => {
+      return filterFruit.name.toLowerCase().includes(item)
     });
   }
 
@@ -189,9 +189,9 @@ export class JkList extends LitElement {
       </div>
       <div id="list">
         <ul class="list">
-          ${this.filteredFruits.length > 0 ? this.filteredFruits.map((item: any, index: number) => _renderFruit(item, index)) : ''}
+          ${this.filterFruits.length > 0 ? this.filterFruits.map((item: any, index: number) => _renderFruit(item, index)) : ''}
         </ul>
-          ${this.filteredFruits.length === 0 ? renderNoItemsLabel() : ''}
+          ${this.filterFruits.length === 0 ? renderNoItemsLabel() : ''}
       </div>
       <jk-scroll-to-top></jk-scroll-to-top>
     `;
