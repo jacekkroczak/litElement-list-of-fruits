@@ -7,7 +7,6 @@ export default class JkListItem extends LitElement {
 
 @property({ type: Number}) index: any;
 
-
   static get styles() {
     return css`
       li {
@@ -25,7 +24,7 @@ export default class JkListItem extends LitElement {
 
   protected render() {
     return html`
-    <li>name: ${this.fruit.name}, id: ${this.index + 1}
+      <li>name: ${this.fruit.name}, id: ${this.index + 1}
         <img src="/assets/${this.fruit.name}.jpg" />
       </li>    
     `;
