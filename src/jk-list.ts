@@ -27,6 +27,8 @@ export class JkList extends LitElement {
 
           #noItems p {
             font-size: 26px;
+            word-break: break-word;
+            padding: 0 15px;
           }
 
           #noItems strong {
@@ -103,6 +105,47 @@ export class JkList extends LitElement {
             border: 2px solid #3fb984;
             padding-left: 10px;
           }
+
+          @media screen and (max-width: 1150px) {
+            #filters {
+              max-width: 100%;
+            }
+
+            #filters button, #filters input {
+              margin-right: 5px;
+            }
+
+            .list {
+              column-count: 3;
+            }
+          }
+
+          @media screen and (max-width: 768px) {
+            #filters {
+              display: block;
+              max-width: 100%;
+            }
+
+            #filters button, #filters input {
+              margin: 10px 0;
+              width: 100%;
+            }
+
+            #filters input {
+              height: 45px;
+              width: -webkit-fill-available;
+            }
+
+            .list {
+              column-count: 2;
+            }
+          }
+
+          @media screen and (max-width: 480px) {
+            .list {
+              column-count: 1;
+            }
+          }
       `,
     ];
   }
@@ -166,7 +209,7 @@ export class JkList extends LitElement {
   }
 
   render() {
-    const _renderFruit = (item: any, index: number) => html`
+    const renderFruit = (item: any, index: number) => html`
       <jk-list-item
         .fruit="${item}"
         .index="${index}"
@@ -179,21 +222,33 @@ export class JkList extends LitElement {
       </div>
     `;
 
+    const renderFilters = () => html`
+      <button class="purpleButton" @click="${(e: any) => this._filterFruits(e)}" value="filterAZ">A-Z filter</button>
+      <button class="purpleButton" @click="${(e: any) => this._filterFruits(e)}" value="filterZA">Z-A filter</button>
+      <button class="blueButton" @click="${(e: any) => this._filterFruits(e)}" value="random">Random fruits</button>
+      <input id="search" class="greenInput" @keyup="${(e: any) => this._searchFruits(e)}" placeholder="Type here...">
+      <button class="redButton" @click="${this._resetFruits}" value="reset">Reset</button>
+    `;
+
+    const renderList = () => html`
+      <ul class="list">
+      ${this.filterFruits.length > 0 ? this.filterFruits.map((item: any, index: number) => renderFruit(item, index)) : ''}
+      </ul>
+    `;
+
+    const renderScroll = () => html`
+      <jk-scroll-to-top></jk-scroll-to-top>
+    `;
+
     return html`
       <div id="filters">
-          <button class="purpleButton" @click="${(e: any) => this._filterFruits(e)}" value="filterAZ">A-Z filter</button>
-          <button class="purpleButton" @click="${(e: any) => this._filterFruits(e)}" value="filterZA">Z-A filter</button>
-          <button class="blueButton" @click="${(e: any) => this._filterFruits(e)}" value="random">Random fruits</button>
-          <input id="search" class="greenInput" @keyup="${(e: any) => this._searchFruits(e)}" placeholder="Type here...">
-          <button class="redButton" @click="${this._resetFruits}" value="reset">Reset</button>
+        ${renderFilters()}  
       </div>
       <div id="list">
-        <ul class="list">
-          ${this.filterFruits.length > 0 ? this.filterFruits.map((item: any, index: number) => _renderFruit(item, index)) : ''}
-        </ul>
-          ${this.filterFruits.length === 0 ? renderNoItemsLabel() : ''}
+        ${renderList()}
+        ${this.filterFruits.length === 0 ? renderNoItemsLabel() : ''}
       </div>
-      <jk-scroll-to-top></jk-scroll-to-top>
+        ${renderScroll()}
     `;
   }
 }
